@@ -11,7 +11,8 @@ if __name__ == "__main__":
     args.add_argument("--output_path", type=str, required=True)
 
     args = args.parse_args()
-    df = pd.DataFrame()
+
+    data_list = []
 
     for f in tqdm(os.listdir(args.input_dir)):
         if f.endswith('.nii.gz'):
@@ -19,4 +20,8 @@ if __name__ == "__main__":
             sub_id = f.split('_')[0]
             out = feature_extraction.analyze_vessels(path)
             out['sub_id'] = sub_id
-            df = df.append(out, ignore_index=True)
+            data_list.append(out)
+
+    df = pd.DataFrame(data_list)
+
+    df.to_csv(args.output_path, index=False)
