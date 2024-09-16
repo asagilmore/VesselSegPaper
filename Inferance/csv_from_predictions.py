@@ -10,6 +10,7 @@ if __name__ == "__main__":
     args.add_argument("--input_dir", type=str, required=True)
     args.add_argument("--output_path", type=str, required=True)
 
+    args = args.parse_args()
     df = pd.DataFrame()
 
     for f in tqdm(os.listdir(args.input_dir)):
