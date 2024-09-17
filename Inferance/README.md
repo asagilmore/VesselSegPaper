@@ -14,7 +14,7 @@ optionally add --skull_strip if your data is not skull stripped already. This re
 
 Install nnUNet according to their instruction found [here](https://github.com/MIC-DKFZ/nnUNet/blob/master/documentation/installation_instructions.md).
 
-Then download the model zip of choice from our repository found [here](10.6084/m9.figshare.27040633), and installing running $nnUNetv2_install_pretrained_model_from_zip model_file.zip
+Then download the model zip of choice from our repository found [here](https://doi.org/10.6084/m9.figshare.27040633.v1), and installing running $nnUNetv2_install_pretrained_model_from_zip model_file.zip
 
 finally to run inferance on a preprocessed folder run on of the following three commands based on the model you downloaded:
 
