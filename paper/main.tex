@@ -1,17 +1,49 @@
-\documentclass{article}
-\usepackage{graphicx} % Required for inserting images
+\documentclass[pdflatex,sn-mathphys-num]{sn-jnl}
+\usepackage{graphicx}%
+\usepackage{multirow}%
+\usepackage{amsmath,amssymb,amsfonts}%
+\usepackage{amsthm}%
+\usepackage{mathrsfs}%
+\usepackage[title]{appendix}%
+\usepackage{xcolor}%
+\usepackage{textcomp}%
+\usepackage{manyfoot}%
+\usepackage{booktabs}%
+\usepackage{algorithm}%
+\usepackage{algorithmicx}%
+\usepackage{algpseudocode}%
+\usepackage{listings}%
+\usepackage{lineno}%
+\usepackage{hyperref}
 
-\title{Vessel Segmentation from Anatomical MRI using Deep learning}
-\author{Asa Gilmore, Ariel Rokem}
-\date{August 2024}
+
+\raggedbottom
+%%\unnumbered% uncomment this for unnumbered level heads
 
 \begin{document}
 
+\linenumbers
+
+\title[Vessel Segmentation from Anatomical MRI using Deep learning]
+
+\author[1, 2]{\fnm{Asa} \sur{Gilmore}}\email{asagil@uw.edu}
+
+\author*[1, 2]{\fnm{Ariel} \sur{Rokem}}\email{arokem@uw.edu}
+
+\affil*[1]{\orgdiv{Department of Psychology}, \orgname{University of Washington}, \orgaddress{\street{Guthrie 119A}, \city{Seattle}, \postcode{98195}, \state{WA}, \country{USA}}}
+
+\affil[2]{\orgdiv{eScience Institute}, \orgname{University of Washington}, \orgaddress{\street{1410 NE Campus Way}, \city{Seattle}, \postcode{98195}, \state{WA}, \country{USA}}}
+
 \maketitle
 
-\section{Abstract}
+\abstract{Non-invasive assessment of the brain circulatory system provides could provide important information about brain health and aging. }
+
+\keywords{Brain, White matter, MRI, Open-source software, Machine learning, Statistics}
+
 
 \section{Introduction}
+
+Brain aging is a multifaceted process that includes many different elements, including demylination of white matter connections, degeneration and thinning of cortical gray matter. These occur in tandem with changes to the brain circulatory system \cite{Zimmerman2021-cq}.
 
 Openly available datasets that include MRA scans of the brain have proven to be a useful tool for researchers in better understanding the relationship between blood vessels and various relevant metrics (xxx). Unfortunately, the number of publicly available datasets that include both MRA imaging, alongside other imaging data, such as diffusion imaging and anatomical imaging is sparse. There has been a great deal of promising research in the field of medical image synthesis using deep learning, such as a t1 to t2 image to image models, which have proved a useful tool. In this paper we propose a deep learning based approach for blood vessel segmentation from t1 and t2 scans. This tool would allow researchers to access information about blood vessel structure on datasets only containing t1 or t2 data via a "synthetic" (i don't think we want to call this synthetic any more, its really just a segmentation performed on a different modality xxx) blood vessel mask generated with our model.
 
@@ -19,11 +51,11 @@ Openly available datasets that include MRA scans of the brain have proven to be 
 
 We trained four configurations of nnUNet on our final task, two variants of Large Residual Encoder model, one on paired T1 and T2 MRI scans, and one on only T1 scans, and two variants Medium Residual Encoder model with the Center-line Dice loss implemented, on both T1 only and paired T1 and T2 scans. Below is the performance for each model (XXX add chart)
 
-Figures 
+Figures
 \begin{enumerate}
-    \item A: An example vessel segmentation with ground truth, B: Histograms of Dice coefficients for different models: T1, T1+T2, T1+CLD, T1+T2+CLD, ... 
+    \item A: An example vessel segmentation with ground truth, B: Histograms of Dice coefficients for different models: T1, T1+T2, T1+CLD, T1+T2+CLD, ...
     \item Statistics: number of bifurcations, etc. scatter-plots with ground truth, each point in the scatter colored by Dice. For all models in Figure 1. From which we conclude that model B (T1+T2) is good enough.
-    \item Bi-variate relationships of the statistics with age: both in IXI test data and in CamCan overall.  
+    \item Bi-variate relationships of the statistics with age: both in IXI test data and in CamCan overall.
     \item Evaluation with CamCan: multivariate linear models with Freesurfer.
 \end{enumerate}
 
@@ -33,8 +65,8 @@ MAIN POINTS:
     \item results are predictive of aging
     \item t1+t2 not only increases performance, but moderately decreases the variance in scores
     \item high level predicted features are also well correlated with gt features, but often offset by an amount
-    \item 
-    
+    \item
+
 \end{itemize}
 
 \section{Methods}
@@ -43,15 +75,15 @@ MAIN POINTS:
 
 \subsubsection{Training dataset: IXI}
 
-In this study we utilized the openly available IXI dataset (https://brain-development.org/ixi-dataset/) to train our model on T1 and blood vessel masks extracted from matching MRA scans. The dataset contains nearly 600 subjects with images acquired in 3 different scanners (XXX What were these scanners; in particular field field strengths, because they vary). The details of the images and scanner parameters can be found here . Briefly, the protocols for these acquisitions: spatial resolution was, TE/TR was. MRA protocol was: XXX
+In this study we utilized the openly available IXI dataset (\url{https://brain-development.org/ixi-dataset/}) to train our model on T1 and blood vessel masks extracted from matching MRA scans. The dataset contains nearly 600 subjects with images acquired in 3 different scanners (XXX What were these scanners; in particular field field strengths, because they vary). The details of the images and scanner parameters can be found here . Briefly, the protocols for these acquisitions: spatial resolution was, TE/TR was. MRA protocol was: XXX
 
 \subsubsection{Evalutation dataset: CamCan}
 
 \subsection{models}
 
-We randomly split the data into ~427 and ~112 training and testing samples, with an even split of each scanner. We tested two different vessel segmentation masks produced from the MRA scans in the IXI dataset. One was produced through a machine learning model which was then human annotated, which was used from the following paper (xxx link). The other segmentation masks were produced using the pre-trained model provided by the COSTA paper (xxx link). 
+We randomly split the data into ~427 and ~112 training and testing samples, with an even split of each scanner. We tested two different vessel segmentation masks produced from the MRA scans in the IXI dataset. One was produced through a machine learning model which was then human annotated, which was used from the following paper (xxx link). The other segmentation masks were produced using the pre-trained model provided by the COSTA paper (xxx link).
 
-In a pilot study, we observed that the model's trained on the COSTA segmentation's performed substantially better than the IXI-Vessel manual segmentation \cite{XXX}. Thus the COSTA masks were chosen as the final masks to used in the models proposed in this paper. 
+In a pilot study, we observed that the model's trained on the COSTA segmentation's performed substantially better than the IXI-Vessel manual segmentation \cite{XXX}. Thus the COSTA masks were chosen as the final masks to used in the models proposed in this paper.
 
 Using the COSTA model also allows for this method to work with any new training data that contains well registered MRA and anatomical scans. The T1 and T2 scans in the IXI dataset are of around half (fix xxx) the resolution of the MRA scans. To preserve as much information as possible the T1 and T2 scans were up sampled to the same resolution as their corresponding MRA using 3rd degree polynomial interpolation (i think xxx).
 
@@ -60,16 +92,19 @@ We trained a number of models using the nnUNet (cite xxx), and the uxLSTM(xxx ci
 
 \subsection{feature extraction}
 
-To produce interpret-able and anatomically based predictions of age and disease from the vessel segmentation's produced by our Model we extract a number of features from the masks. To do so we first produce a "skeleton" of the mask using the Lee thinning algorithm (xxx cite). This is used to define the center-line of each blood vessel, as well as to compute the number of bifurcation points and endpoints in the vessel map. We can also compute an estimate of the radius at each point by computing a distance transform from the center-line to the edge of the vessel mask. While all of the previous features were computed using the binary mask produced by arg-maxxing (terminology?? xxx) the probability's at each pixel, we can interpret these probabilities themselves to extract useful information about the vessels. We can take the sum of the probability for the vessel class at each pixel to get a "more accurate" (not sure I can say this with confidence, but it is more predictive of aging) value for the total volume of vessels in a given scan, which correlates strongly with aging. 
+To produce interpret-able and anatomically based predictions of age and disease from the vessel segmentation's produced by our Model we extract a number of features from the masks. To do so we first produce a "skeleton" of the mask using the Lee thinning algorithm (xxx cite). This is used to define the center-line of each blood vessel, as well as to compute the number of bifurcation points and endpoints in the vessel map. We can also compute an estimate of the radius at each point by computing a distance transform from the center-line to the edge of the vessel mask. While all of the previous features were computed using the binary mask produced by arg-maxxing (terminology?? xxx) the probability's at each pixel, we can interpret these probabilities themselves to extract useful information about the vessels. We can take the sum of the probability for the vessel class at each pixel to get a "more accurate" (not sure I can say this with confidence, but it is more predictive of aging) value for the total volume of vessels in a given scan, which correlates strongly with aging.
 
 
 \section{availability}
 
-All code for this paper has been made available on GitHub. A csv file containing the subjects used for training and testing has also been added to the repository. The IXI dataset can be found here (xxx). 
+All code for this paper has been made available on GitHub. A csv file containing the subjects used for training and testing has also been added to the repository. The IXI dataset can be found here (xxx).
 
 
-\section{acknowledgements}
+\section{Acknowledgements}
+
+This work was funded by National Institutes of Health grants MH121868, MH121867, and EB027585, as well as by National Science Foundation grant 1934292. Software development was also supported by the Chan Zuckerberg Initiative's Essential Open Source Software for Science program.
 
 Data collection and sharing for this project was provided by the Cambridge Centre for Ageing and Neuroscience (CamCAN). CamCAN funding was provided by the UK Biotechnology and Biological Sciences Research Council (grant number BB/H008217/1), together with support from the UK Medical Research Council and University of Cambridge, UK.
 
+\bibliography{main}
 \end{document}
