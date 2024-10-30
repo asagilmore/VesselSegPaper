@@ -35,13 +35,16 @@
 
 \abstract{Non-invasive assessment of the brain circulatory system provides could provide important information about brain health and aging. }
 
-\keywords{Brain, White matter, MRI, Open-source software, Machine learning, Statistics}
+\keywords{Brain, Magnetic Resonance Imaging, Magnetic Resonance Angiography, Aging}
 
 \maketitle
-
 \section{Introduction}
 
-Brain aging is a multifaceted process that includes many different elements, including demylination of white matter connections, degeneration and thinning of cortical gray matter. These occur in tandem with changes to the brain circulatory system \cite{Zimmerman2021-cq}.
+Brain aging is a multifaceted process that includes many different elements, including demylination of white matter connections, degeneration and thinning of cortical gray matter and many other processes that can be measured with magnetic resonance imaging. Many of the cellular changes to neurons and glia occur in tandem with changes to the brain circulatory system \cite{Zimmerman2021-cq}. Therefore, non-invasive assessments of brain circulatory anatomy is important to assessment of brain aging. Time of flight magnetic resonance angiography (MRA) offers a view of large brain blood vessels that is useful in clinical assessment of brain infarcts and other gross dysfunctions of the vascular system. In addition, these measurements provide information about slow changes to brain blood vasculature that occurs over time.
+
+In addition to MRA, many other imaging methods are sensitive to the presence of brain vasculature, but this information is not usually utilized in MRI image processing pipelines that are used to characterize brain structure. This despite the fact that this information would be complementary to . Therefore, providing tools that assess and quantify brain blood vessel morphology would be useful.
+
+Here, we provide a tool that assesses and quantifies brain blood vessel morphology in routinely-collected T1-weighted (T1w) + T2-weighted (T2w) MR images. This model was trained on a dataset in which ground-truth MRA was collected in tandem with T1w and T2w images.
 
 Openly available datasets that include MRA scans of the brain have proven to be a useful tool for researchers in better understanding the relationship between blood vessels and various relevant metrics (xxx). Unfortunately, the number of publicly available datasets that include both MRA imaging, alongside other imaging data, such as diffusion imaging and anatomical imaging is sparse. There has been a great deal of promising research in the field of medical image synthesis using deep learning, such as a t1 to t2 image to image models, which have proved a useful tool. In this paper we propose a deep learning based approach for blood vessel segmentation from t1 and t2 scans. This tool would allow researchers to access information about blood vessel structure on datasets only containing t1 or t2 data via a "synthetic" (i don't think we want to call this synthetic any more, its really just a segmentation performed on a different modality xxx) blood vessel mask generated with our model.
 
