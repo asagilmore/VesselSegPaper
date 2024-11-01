@@ -40,7 +40,7 @@
 \maketitle
 \section{Introduction}
 
-Brain aging is a multifaceted process that includes many different elements, including demylination of white matter connections, degeneration and thinning of cortical gray matter and many other processes that can be measured with magnetic resonance imaging. Many of the cellular changes to neurons and glia occur in tandem with changes to the brain circulatory system \cite{Zimmerman2021-cq}. Therefore, non-invasive assessments of brain circulatory anatomy is important to assessment of brain aging. Time of flight magnetic resonance angiography (MRA) offers a view of large brain blood vessels that is useful in clinical assessment of brain infarcts and other gross dysfunctions of the vascular system. In addition, these measurements provide information about slow changes to brain blood vasculature that occurs over time.
+Brain aging is a multifaceted process that includes many different elements, including demylination of white matter connections, degeneration and thinning of cortical and subcortical gray matter, and many other processes that can be measured with magnetic resonance imaging (MRI). Many of the cellular changes to neurons and glia occur in tandem with changes to the brain circulatory system \cite{Zimmerman2021-cq}. Therefore, non-invasive assessments of brain circulatory anatomy is important to assessment of brain aging. Time of flight magnetic resonance angiography (MRA) offers a view of large brain bllod vessels that is useful in clinical assessment of brain infarcts and other gross dysfunctions of the vascular system. In addition, these measurements provide information about slow changes to brain blood vasculature that occurs over time.
 
 In addition to MRA, many other imaging methods are sensitive to the presence of brain vasculature, but this information is not usually utilized in MRI image processing pipelines that are used to characterize brain structure. This despite the fact that this information would be complementary to . Therefore, providing tools that assess and quantify brain blood vessel morphology would be useful.
 
@@ -93,8 +93,16 @@ We trained a number of models using the nnUNet (cite xxx), and the uxLSTM(xxx ci
 
 \subsection{feature extraction}
 
-To produce interpret-able and anatomically based predictions of age and disease from the vessel segmentation's produced by our Model we extract a number of features from the masks. To do so we first produce a "skeleton" of the mask using the Lee thinning algorithm (xxx cite). This is used to define the center-line of each blood vessel, as well as to compute the number of bifurcation points and endpoints in the vessel map. We can also compute an estimate of the radius at each point by computing a distance transform from the center-line to the edge of the vessel mask. While all of the previous features were computed using the binary mask produced by arg-maxxing (terminology?? xxx) the probability's at each pixel, we can interpret these probabilities themselves to extract useful information about the vessels. We can take the sum of the probability for the vessel class at each pixel to get a "more accurate" (not sure I can say this with confidence, but it is more predictive of aging) value for the total volume of vessels in a given scan, which correlates strongly with aging.
+To produce interpret-able and anatomically based predictions of age and disease from the vessel segmentation's produced by our Model we extract a number of features from the masks. To do so we first produce a ``skeleton'' of the mask using the Lee thinning algorithm (xxx cite). This is used to define the center-line of each blood vessel, as well as to compute the number of bifurcation points and endpoints in the vessel map. We can also compute an estimate of the radius at each point by computing a distance transform from the center-line to the edge of the vessel mask. While all of the previous features were computed using the binary mask produced by arg-maxxing (terminology?? xxx) the probability's at each pixel, we can interpret these probabilities themselves to extract useful information about the vessels. We can take the sum of the probability for the vessel class at each pixel to get a "more accurate" (not sure I can say this with confidence, but it is more predictive of aging) value for the total volume of vessels in a given scan, which correlates strongly with aging.
 
+\section{Discussion}
+
+\subsection{Future work}
+
+There is some evidence that certain parts of the vasculature display more age
+effects than others \cite{Bullitt2010-ul}. Therefore, extensions of this work
+could segment the blood vessels that are identified into different vascular
+territories and/or functional groups.
 
 \section{availability}
 
